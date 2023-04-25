@@ -6,6 +6,7 @@ let answerValue = 0.0;
 let isOperationDisabled = true;
 let isNumberDisabled = false;
 let currentOperation = "";
+let numberToMultiply = 1;
 
 let disableOperations = function () {
     let operations = document.getElementsByClassName("operation");
@@ -41,6 +42,7 @@ let init = function () {
     isOperationDisabled = true;
     isNumberDisabled = false;
     currentOperation = "";
+    numberToMultiply = 1
     disableOperations();
     enableNumbers();
 }
@@ -55,20 +57,26 @@ let numbers = document.getElementsByClassName("number");
 for (let i = 0; i < numbers.length; i++) {
     numbers[i].addEventListener("click", function () {
         answer.innerHTML += numbers[i].innerHTML;
+
         if (currentOperation === "+") {
             answerValue += parseFloat(numbers[i].innerHTML);
             currentOperation = "";
+            numberToMultiply = 1;
         } else if (currentOperation === "-") {
             answerValue -= parseFloat(numbers[i].innerHTML);
             currentOperation = "";
+            numberToMultiply = 1;
         } else if (currentOperation === "*") {
             answerValue *= parseFloat(numbers[i].innerHTML);
             currentOperation = "";
+            numberToMultiply = 1;
         } else if (currentOperation === "/") {
             answerValue /= parseFloat(numbers[i].innerHTML);
             currentOperation = "";
+            numberToMultiply = 1;
         } else {
-            answerValue = parseFloat(numbers[i].innerHTML);
+            answerValue = answerValue * numberToMultiply + parseFloat(numbers[i].innerHTML);
+            numberToMultiply = 10;
         }
         if (isOperationDisabled) {
             enableOperations();
